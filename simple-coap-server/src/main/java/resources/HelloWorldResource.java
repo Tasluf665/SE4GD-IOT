@@ -15,7 +15,7 @@ public class HelloWorldResource extends CoapResource {
 	@Override
 	public void handleGET(CoapExchange exchange) {
 		exchange.respond(ResponseCode.CONTENT,
-				 "Hello World! From Tasluf github",
+				 "Hello World! From Tasluf github updated",
 				 MediaTypeRegistry.TEXT_PLAIN);
 	}
 }
