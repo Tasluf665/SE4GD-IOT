@@ -960,7 +960,7 @@
         "observe": false,
         "multicast": false,
         "multicastTimeout": 20000,
-        "url": "coap://se4iot-simplecoapserver-remote:5684/temperature",
+        "url": "coap://se4iot-simplecoapserver-remote:5684/hello-world-resource",
         "content-format": "text/plain",
         "raw-buffer": false,
         "name": "remote-temperature",
