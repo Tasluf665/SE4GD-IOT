@@ -9,7 +9,7 @@ WORKDIR /app
 # Step 4: Clone the Git repository
 ARG GITHUB_TOKEN
 RUN echo "Cloning repository..."
-RUN git clone --sparse https://$GITHUB_TOKEN:x-oauth-basic@github.com/MDEGroup/se4iot.git .
+RUN git clone --sparse https://$GITHUB_TOKEN:x-oauth-basic@github.com/Tasluf665/SE4GD-IOT .
 
 WORKDIR /app
 
