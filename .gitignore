@@ -1,0 +1,11 @@
+/.metadata/
+COAP-MQTT-NODERED/nodered/data/.npm/*
+COAP-MQTT-NODERED/nodered/data/node_modules
+COAP-MQTT-NODERED/nodered/data/*.backup
+COAP-MQTT-NODERED/nodered-custom/data/*.backup
+COAP-MQTT-NODERED/nodered-custom/data/.npm/*
+
+it.univaq.disim.se4iot.mqtt/target/*
+it.univaq.disim.se4iot.rabbitmq/java/*.class
+OSGI-commandline/configuration/org.eclipse.osgi/*
+it.univaq.disim.se4iot.mqtt/target/classes/*

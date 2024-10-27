@@ -1,0 +1,116 @@
+# Use root/example as user/password credentials
+version: '3.3'
+
+services:
+
+  db:
+    image: mysql
+    container_name: se4iot-mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    # command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+    - "3306:3306" 
+    volumes:
+    - ./mysql-dump:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    container_name: se4iot-mysql-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+#    networks:
+#      - se4iot-net
+
+#node-red:
+#    image: nodered/node-red:latest
+ #   container_name: se4iot-node-red
+ #   environment:
+ #     - TZ=Europe/Amsterdam
+ #   ports:
+ #     - "1880:1880"
+ #   networks:
+ #     se4iot-network:
+ #       ipv4_address: 172.30.0.100
+ #   volumes:
+ #     - ./nodered/data:/data
+
+  node-red:
+    container_name: se4iot-node-red
+    build:
+      context: ./nodered-custom/
+      dockerfile: Dockerfile
+    image: custom_nodered:latest
+    environment:
+      - TZ=Europe/Amsterdam
+      - MYSQLUSERNAME=root
+      - MYSQLPASSWORD=example
+    ports:
+      - "1880:1880"
+    networks:
+      se4iot-network:
+        ipv4_address: 172.30.0.100
+    volumes:
+      - ./nodered-custom/data:/data
+
+  mosquitto:
+    container_name: se4iot-mosquitto
+    image: eclipse-mosquitto
+    volumes:
+    - ./mosquitto/config:/mosquitto/config
+    - ./mosquitto/log:/mosquitto/log
+    - ./mosquitto/data/:/mosquitto/data
+    restart: always
+    networks:
+      se4iot-network:
+        ipv4_address: 172.30.0.101
+    ports:
+    - "1883:1883" 
+
+  simplecoapserver:
+    container_name: se4iot-simplecoapserver
+    build:
+      context: ./coap-server/
+      dockerfile: Dockerfile
+    image: simple-coap-server:latest
+    networks:
+      se4iot-network:
+        ipv4_address: 172.30.0.102
+    ports:
+      - "5683:5683"
+
+  simplecoapserver-remote:
+    container_name: se4iot-simplecoapserver-remote
+    build:
+      context: ./coap-server-remote/
+      dockerfile: Dockerfile
+    image: simple-coap-server-remote:latest
+    volumes:
+      - ./coap-server-remote/Californium3.properties:/app/Californium3.properties
+    networks:
+      se4iot-network:
+        ipv4_address: 172.30.0.103
+    ports:
+      - "5684:5684"
+
+
+  influxdb:
+    container_name: se4iot-influxdb
+    image: influxdb:2.7.4
+    ports:
+      - 8086:8086
+    networks:
+      se4iot-network:
+        ipv4_address: 172.30.0.104
+
+
+networks:
+  se4iot-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16

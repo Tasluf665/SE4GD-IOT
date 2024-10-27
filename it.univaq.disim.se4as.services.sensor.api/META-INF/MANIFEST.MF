@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sensor API
+Bundle-SymbolicName: it.univaq.disim.se4as.services.sensor.api
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: it.univaq.disim.se4as.services.sensor.api

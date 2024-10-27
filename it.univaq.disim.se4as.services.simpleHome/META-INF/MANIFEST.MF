@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SimpleHome
+Bundle-SymbolicName: it.univaq.disim.se4as.services.simpleHome
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: it.univaq.disim_se4as.services.temperatureactivator.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: it.univaq.disim.se4as.services.sensor.api,
+ org.osgi.framework
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: it.univaq.disim.se4as.services.simpleHome
